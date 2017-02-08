@@ -1,5 +1,6 @@
 // sample code taken from
 // <https://developer.mozilla.org/de/docs/Web/API/WebGL_API/Tutorial/Einf%C3%BChrung_in_WebGL>
+import {initShaders} from './shaders'
 
 let gl
 
@@ -30,6 +31,8 @@ export default function setupGL(canvas) {
     gl.enable(gl.DEPTH_TEST)
     gl.depthFunc(gl.LEQUAL)
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+
+    initShaders(gl)
 
     canvas.classList.add('canvas--visible')
   }

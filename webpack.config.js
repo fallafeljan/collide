@@ -21,6 +21,9 @@ const config = {
     }, {
       test: /\.html$/,
       use: 'html-loader'
+    }, {
+      test: /\.(glsl|vs|fs)$/,
+      use: 'raw-loader'
     }]
   },
 
