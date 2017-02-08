@@ -25,6 +25,7 @@ function compileShader(source, type) {
   gl.compileShader(shader)
   
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    // eslint-disable-next-line no-console
     console.error(
       'An error occured during shader compilation:',
       gl.getShaderInfoLog(shader)
@@ -47,7 +48,8 @@ export function initShaders(glInstance) {
   gl.linkProgram(shaderProgram)
   
   if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-    alert('Can\'t initialize shader program')
+    // eslint-disable-next-line no-console
+    console.error('Can\'t initialize shader program')
   }
   
   gl.useProgram(shaderProgram)

@@ -8,15 +8,15 @@ function initWebGL(canvas) {
   gl = null
   
   try {
-    gl = canvas.getContext("webgl")
-      || canvas.getContext("experimental-webgl")
+    gl = canvas.getContext('webgl')
+      || canvas.getContext('experimental-webgl')
+
+    if (!gl) {
+      throw new Error('`gl` is null')
+    }
   }
   catch (err) {
-  }
-  
-  // Wenn wir keinen WebGl Kontext haben
-  
-  if (!gl) {
+    // eslint-disable-next-line no-console
     console.error('Could not initialize WebGL')
 
     gl = null
