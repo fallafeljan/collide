@@ -15,9 +15,18 @@
       margin: 0;
       padding: 0;
     }
+
+    .canvas {
+      opacity: 0;
+      transition: opacity 120ms ease-out;
+    }
+
+    .canvas--visible {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" class="canvas"></canvas>
 </body>
 </html>
