@@ -1,6 +1,7 @@
 {
   "name": "collide",
   "version": "0.0.0",
+  "description": "💥 basic object collisions in js and webgl",
   "repository": "git@github.com:fallafeljan/collide.git",
   "author": "jk <fallafeljan@users.noreply.github.com>",
   "license": "MIT",
