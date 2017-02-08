@@ -60,4 +60,6 @@ export function initShaders(glInstance) {
   )
 
   gl.enableVertexAttribArray(vertexPositionAttribute)
+
+  return {shaderProgram, vertexPositionAttribute}
 }

@@ -3357,6 +3357,10 @@ supports-color@^3.1.0, supports-color@^3.1.1:
   dependencies:
     has-flag "^1.0.0"
 
+sylvester-es6@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/sylvester-es6/-/sylvester-es6-0.0.2.tgz#3e65178a5ae3cc3f419542d9cd1ad55435912abf"
+
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"

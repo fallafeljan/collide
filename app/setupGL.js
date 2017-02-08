@@ -1,6 +1,7 @@
 // sample code taken from
 // <https://developer.mozilla.org/de/docs/Web/API/WebGL_API/Tutorial/Einf%C3%BChrung_in_WebGL>
 import {initShaders} from './shaders'
+import {initBuffers, drawScene} from './scene'
 
 let gl
 
@@ -23,6 +24,7 @@ function initWebGL(canvas) {
   }
 }
 
+
 export default function setupGL(canvas) {
   initWebGL(canvas)
   
@@ -32,8 +34,15 @@ export default function setupGL(canvas) {
     gl.depthFunc(gl.LEQUAL)
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
-    initShaders(gl)
+    const {
+      shaderProgram,
+      vertexPositionAttribute
+    } = initShaders(gl)
+    
+    initBuffers(gl)
 
     canvas.classList.add('canvas--visible')
+
+    drawScene(gl, shaderProgram, vertexPositionAttribute)
   }
 }
