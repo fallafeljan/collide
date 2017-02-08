@@ -43,6 +43,8 @@ export default function setupGL(canvas) {
 
     canvas.classList.add('canvas--visible')
 
-    drawScene(gl, shaderProgram, vertexPositionAttribute)
+    setInterval(() => {
+      drawScene(gl, shaderProgram, vertexPositionAttribute)
+    }, 33.3)
   }
 }
