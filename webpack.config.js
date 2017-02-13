@@ -10,6 +10,8 @@ const config = {
     filename: debug ? 'bundle.js' : 'bundle.[hash].js'
   },
 
+  devtool: debug ? 'source-map' : false,
+
   performance: {
     hints: debug ? false : 'warning'
   },
