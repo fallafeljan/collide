@@ -6,7 +6,7 @@ import {
 
 const horizAspect = 480.0/640.0
 
-let squareVerticesBuffer
+let rotatingBuffer, translatingBuffer
 let perspectiveMatrix
 let mvMatrix
 let lastSquareUpdateTime
@@ -22,8 +22,12 @@ function multMatrix(m) {
   mvMatrix = mvMatrix.x(m);
 }
 
-function mvTranslate(v) {
-  multMatrix(Matrix.Translation(new Vector([v[0], v[1], v[2]])).ensure4x4());
+function mvTranslate(translation, times = 1) {
+  multMatrix(Matrix.Translation(new Vector([
+    times * translation[0],
+    times * translation[1],
+    times * translation[2]
+  ])).ensure4x4());
 }
 
 function setMatrixUniforms(gl, shaderProgram) {
@@ -70,12 +74,27 @@ export function drawScene(gl, shaderProgram, vertexPositionAttribute) {
   mvPushMatrix()
   mvRotate(squareRotation, [1, 0, 1])
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer)
+  gl.bindBuffer(gl.ARRAY_BUFFER, rotatingBuffer)
   gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0)
 
   setMatrixUniforms(gl, shaderProgram)
-
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+
+  mvPopMatrix()
+
+  mvPushMatrix()
+  mvTranslate([0, 0, -2])
+
+  const translationStep = (new Date).getTime() / 100 % 100 / 100
+  mvTranslate([1, 0, 0], translationStep < 50 ?
+    -1 * translationStep : translationStep)
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, translatingBuffer)
+  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0)
+
+  setMatrixUniforms(gl, shaderProgram)
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+
   mvPopMatrix()
 
   const currentTime = (new Date).getTime()
@@ -88,10 +107,6 @@ export function drawScene(gl, shaderProgram, vertexPositionAttribute) {
 }
 
 export function initBuffers(gl) {
-  squareVerticesBuffer = gl.createBuffer()
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer)
-  
   const vertices = [
     1.0,  1.0,  0.0,
     -1.0, 1.0,  0.0,
@@ -99,5 +114,12 @@ export function initBuffers(gl) {
     -1.0, -1.0, 0.0
   ]
   
+  rotatingBuffer = gl.createBuffer()
+  translatingBuffer = gl.createBuffer()
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, rotatingBuffer)
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, translatingBuffer)
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
 }
